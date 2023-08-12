@@ -1,34 +1,20 @@
-import logo from './logo.svg';
-import './App.css';
-import { useEffect, useState } from 'react';
-import {getContact, getContacts} from "./services/contacts"
+import "./App.css";
+import { Routes, Route } from "react-router-dom";
+import Register from "./pages/Register";
+import Login from "./pages/Login";
+import Home from "./pages/Home";
+import NotFound from "./pages/NotFound";
+import { useState } from "react";
+
 function App() {
-  const [contacts, setContacts] = useState()
-  useEffect(() => {
-    getContacts().then(data => setContacts(data));
-    getContact("64ca945849f86c982086a712").then(data => console.log(data))
-  }, [])
-  useEffect(() => {
-    console.log("list of contacts: ", contacts);
-  }, [contacts])
-  
+  const [user, setUser] = useState(null)
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Routes>
+      <Route path="/register" element={<Register setUser={setUser} user={user} />} />
+      <Route path="/login" element={<Login setUser={setUser} user={user} />} />
+      <Route path="/" element={<Home setUser={setUser} user={user} />}  />
+      <Route path="*" element={<NotFound />} />
+    </Routes>
   );
 }
 
