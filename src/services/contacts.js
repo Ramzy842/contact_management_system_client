@@ -37,6 +37,7 @@ const create = async (contact) => {
     return response.data;
   } catch (error) {
     console.log("Error fetching data: ", error);
+    return error.response.data
   }
 };
 

@@ -1,13 +1,18 @@
 import React, { useEffect, useState } from "react";
-import { remove, setToken } from "../services/contacts";
+import { setToken } from "../services/contacts";
 import AddContact from "../components/Home/Main/AddContact";
 import { useNavigate } from "react-router-dom";
-import { getUser } from "../services/users";
-import ContactItem from "../components/Home/Main/ContactItem";
+import "../styles/home.css";
+import ContactList from "../components/Home/Main/ContactList";
+import Header from "../components/Home/Header/Header";
+import SearchBox from "../components/Home/Main/SearchBox";
 
 const Home = ({ setUser, user }) => {
-  const [contacts, setContacts] = useState([]);
+  const [initialContacts, setInitialContacts] = useState(null);
+  const [contacts, setContacts] = useState(initialContacts);
   const [showAdd, setShowAdd] = useState(false);
+  const [headerHeight, setHeaderHeight] = useState(null);
+
   const navigate = useNavigate();
   useEffect(() => {
     const loggedUser = window.localStorage.getItem("loggedSystemUser");
@@ -18,41 +23,36 @@ const Home = ({ setUser, user }) => {
     } else navigate("/login");
   }, [setUser, navigate]);
 
-  const handleClick = () => {
-    setShowAdd(!showAdd);
-  };
-
-  const handleLogout = () => {
-    window.localStorage.removeItem("loggedSystemUser");
-    navigate("/login");
-  }
-
-  useEffect(() => {
-    if (user) {
-      getUser(user.id).then((data) => setContacts(data.contacts));
-    }
-  }, [user]);
-  if (!contacts || contacts.length === 0) return <div>Loading...</div>;
   return (
-    contacts && (
-      <div>
-        <h1>
-          Welcome back Mr {user.username.toUpperCase()} <button onClick={handleLogout}>Log out</button>
-        </h1>
-        <button onClick={handleClick}>
-          {showAdd ? "Cancel" : "Add contact"}
-        </button>
-        {showAdd && <AddContact user={user} setContacts={setContacts} />}
-        <ul>
-          {contacts.map((contact) => (
-            <ContactItem
-              key={contact.id}
-              contact={contact}
+    user && (
+      <div className="container_home">
+        <Header
+          setHeaderHeight={setHeaderHeight}
+          user={user}
+          showAdd={showAdd}
+          setShowAdd={setShowAdd}
+        />
+        <main>
+          <SearchBox
+            initialContacts={initialContacts}
+            setContacts={setContacts}
+          />
+          {showAdd && (
+            <AddContact
+              headerHeight={headerHeight}
               user={user}
+              setShowAdd={setShowAdd}
               setContacts={setContacts}
             />
-          ))}
-        </ul>
+          )}
+          <ContactList
+            contacts={contacts}
+            user={user}
+            setContacts={setContacts}
+            initialContacts={initialContacts}
+            setInitialContacts={setInitialContacts}
+          />
+        </main>
       </div>
     )
   );
