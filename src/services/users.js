@@ -1,5 +1,5 @@
 import axios from "axios";
-const baseUrl = "/api/users";
+const baseUrl = process.env.REACT_APP_USERS_ENDPOINT;
 
 const register = async (credentials) => {
   const response = await axios.post(baseUrl, credentials);

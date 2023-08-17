@@ -1,5 +1,5 @@
 import axios from "axios";
-const baseUrl = "/api/contacts";
+const baseUrl = process.env.REACT_APP_CONTACTS_ENDPOINT;
 
 let token = null;
 
@@ -12,7 +12,8 @@ const getContacts = async () => {
     const response = await axios.get(baseUrl);
     return response.data;
   } catch (error) {
-    console.error("Error fetching data:", error);
+    //console.error("Error fetching data:", error);
+    return error.response.data
   }
 };
 
@@ -21,51 +22,45 @@ const getContact = async (id) => {
     const response = await axios.get(`${baseUrl}/${id}`);
     return response.data;
   } catch (error) {
-    console.log("Error fetching data: ", error);
+    //console.log("Error fetching data: ", error);
+    return error.response.data
   }
 };
 
+const generateConfig = () => ({
+  headers: {
+    Authorization: token,
+  },
+});
+
 const create = async (contact) => {
   try {
-    const config = {
-      headers: {
-        Authorization: token,
-      },
-    };
-
-    const response = await axios.post(`${baseUrl}`, contact, config);
+    const response = await axios.post(`${baseUrl}`, contact, generateConfig());
     return response.data;
   } catch (error) {
-    console.log("Error fetching data: ", error);
+    //console.log("Error fetching data: ", error);
     return error.response.data
   }
 };
 
 const update = async (id, contact) => {
-  const config = {
-    headers: {
-      Authorization: token,
-    },
-  };
   try {
-    const response = await axios.put(`${baseUrl}/${id}`, contact, config);
+    const response = await axios.put(`${baseUrl}/${id}`, contact, generateConfig());
     return response.data;
   } catch (error) {
-    console.log("Error updating data: ", error);
+    //console.log("Error updating data: ", error);
+    return error.response.data
   }
 };
 
 const remove = async (id) => {
-  const config = {
-    headers: {
-      Authorization: token,
-    },
-  };
+
   try {
-    const response = await axios.delete(`${baseUrl}/${id}`, config);
+    const response = await axios.delete(`${baseUrl}/${id}`, generateConfig());
     return response.data;
   } catch (error) {
-    console.log("Error Removing contact: ", error);
+    //console.log("Error Removing contact: ", error);
+    return error.response.data
   }
 };
 
