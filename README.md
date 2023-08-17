@@ -18,7 +18,7 @@ Welcome to the frontend repository of the Contact Management System! This system
 ## Getting Started
 
 1. Clone this repository to your local machine.
-2. Navigate to the project directory: `cd contact-management-system-client`.
+2. Navigate to the project directory: `cd contact_management_system_client`.
 3. Install dependencies: `npm install`.
 4. Configure the API endpoint in the `.env` file.
 5. Start the development server: `npm start`.
