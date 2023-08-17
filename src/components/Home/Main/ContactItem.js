@@ -16,21 +16,36 @@ const ContactItem = ({ setContacts, user, contact }) => {
     setEdit(!edit);
     setShowNumber(!showNumber);
   };
-  return (
+  return edit ? (
+    <EditContact
+      user={user}
+      setContacts={setContacts}
+      id={contact.id}
+      firstName={contact.firstName}
+      lastName={contact.lastName}
+      phone={contact.phone}
+      setEdit={setEdit}
+      edit={edit}
+      handleEdit={handleEdit}
+    />
+  ) : (
     <tr key={contact.id}>
       <td>
         {contact.firstName} {contact.lastName}
       </td>
-      {/* <td>{showNumber && contact.phone}</td> */}
       <td>{contact.phone}</td>
       <td>
-        <button className="delete_contact" onClick={() => handleDelete(contact.id)}>Delete</button>{" "}
+        <button
+          className="delete_contact"
+          onClick={() => handleDelete(contact.id)}
+        >
+          Delete
+        </button>{" "}
         <button className="edit_contact" onClick={() => handleEdit(contact.id)}>
           {edit ? "Cancel edit" : "Edit"}
         </button>{" "}
       </td>
     </tr>
-    
   );
 };
 

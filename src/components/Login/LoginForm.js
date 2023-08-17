@@ -56,7 +56,7 @@ const LoginForm = ({setUser}) => {
               placeholder="Password"
             />
           </div>
-          <FormButton text="Log in" />
+          <FormButton text="Login" />
           <p>
             Don't have an account?{" "}
             <Link className="link" to="/register">
