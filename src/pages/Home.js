@@ -12,8 +12,7 @@ const Home = ({ setUser, user }) => {
   const [contacts, setContacts] = useState(initialContacts);
   const [showAdd, setShowAdd] = useState(false);
   const [headerHeight, setHeaderHeight] = useState(null);
-  const [phoneRegex, setPhoneRegex] = useState(/^\d{10}$/)
-  
+
   const navigate = useNavigate();
   useEffect(() => {
     const loggedUser = window.localStorage.getItem("loggedSystemUser");
@@ -40,7 +39,6 @@ const Home = ({ setUser, user }) => {
           />
           {showAdd && (
             <AddContact
-            phoneRegex={phoneRegex}
               headerHeight={headerHeight}
               user={user}
               setShowAdd={setShowAdd}

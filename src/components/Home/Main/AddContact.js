@@ -8,7 +8,6 @@ const AddContact = ({
   setContacts,
   setShowAdd,
   headerHeight,
-  phoneRegex,
 }) => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
