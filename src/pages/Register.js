@@ -5,6 +5,9 @@ import { useNavigate } from "react-router-dom";
 const Register = () => {
   const navigate = useNavigate();
   useEffect(() => {
+    document.title = "Contact management system | Register"
+  }, [])
+  useEffect(() => {
     const loggedUser = window.localStorage.getItem("loggedSystemUser");
     if (loggedUser) navigate("/");
   }, [navigate]);

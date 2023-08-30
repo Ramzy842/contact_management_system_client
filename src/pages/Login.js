@@ -6,6 +6,9 @@ const Login = ({ setUser }) => {
   
   const navigate = useNavigate();
   useEffect(() => {
+    document.title = "Contact management system | Login"
+  }, [])
+  useEffect(() => {
     const loggedUser = window.localStorage.getItem("loggedSystemUser");
     if (loggedUser) navigate("/");
   }, [navigate]);

@@ -14,6 +14,10 @@ const Home = ({ setUser, user }) => {
   const [headerHeight, setHeaderHeight] = useState(null);
 
   const navigate = useNavigate();
+
+  useEffect(() => {
+    document.title = "Contact management system | Home"
+  }, [])
   useEffect(() => {
     const loggedUser = window.localStorage.getItem("loggedSystemUser");
     if (loggedUser) {
